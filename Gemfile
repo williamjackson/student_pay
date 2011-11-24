@@ -36,6 +36,7 @@ group :test do
   gem 'rspec-rails'
   gem 'webrat'
   gem 'sqlite3'
+  gem 'factory_girl_rails'
 end
 
 group :development do
