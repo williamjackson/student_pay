@@ -12,12 +12,12 @@ describe UsersController do
     end
     
     it "should be successful" do
-      get :show, :id => @user.user_name
+      get :show, :id => @user
       response.should be_success
     end
     
     it "should find the right user" do
-      get :show, :id => @user.user_name
+      get :show, :id => @user
       assigns(:user).should == @user
     end
   end
