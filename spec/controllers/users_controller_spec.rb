@@ -38,7 +38,7 @@ describe UsersController do
     
     describe "failure" do
       before(:each) do
-        @attr = { :user_name => '', :name => '', :email => '', 
+        @attr = { :name => '', :email => '',
                   :password => '', :password_confirmation => '' }
       end
       
@@ -62,7 +62,7 @@ describe UsersController do
     describe "success" do
 
       before(:each) do
-        @attr = { :user_name => 'frank', :name => 'frank sinatra',
+        @attr = { :name => 'frank sinatra',
                   :email => 'frank.sinatra@utoronto.ca', 
                   :password => 'foobar', :password_confirmation => 'foobar' }
       end
@@ -71,6 +71,11 @@ describe UsersController do
         lambda do
           post :create, :user => @attr
         end.should change(User, :count).by(1)
+      end
+
+      it "should sign the user in" do
+        post :create, :user => @attr
+        controller.should be_signed_in
       end
 
       it "should redirect to the user show page" do

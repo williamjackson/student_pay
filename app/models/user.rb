@@ -6,11 +6,10 @@ class User < ActiveRecord::Base
 
   validates :name,  :presence => true,
                     :length   => { :maximum => 50 }
-  validates :user_name, :presence     => true,
-                        :length       => { :maximum => 20 },
-                        :uniqueness   => { :case_sensitive => false }
+
   validates :email, :presence => true,
-                    :format   => { :with => email_regex }
+                    :format   => { :with => email_regex },
+                    :uniqueness   => { :case_sensitive => false }
   
   validates :password,  :presence => true,
                         :confirmation => true,
@@ -23,8 +22,8 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(submitted_password)
   end
   
-  def self.authenticate(user_name, submitted_password)
-    user = User.find_by_user_name(user_name)
+  def self.authenticate(user_email, submitted_password)
+    user = User.find_by_email(user_email)
     return nil if user.nil?
     return user if user.has_password?(submitted_password)
   end

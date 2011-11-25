@@ -5,8 +5,7 @@ require 'spec_helper'
 describe User do
 
   before(:each) do
-    @attr = { :name => "Example User",
-              :user_name => "example", 
+    @attr = { :name => "example",
               :email => "user@example.com",
               :password => 'foobar',
               :password_confirmation => 'foobar' }
@@ -27,18 +26,7 @@ describe User do
     long_name_user.should_not be_valid
   end
   
-  it "should require a user_name" do
-    no_user_name_user = User.new(@attr.merge(:user_name => ""))
-    no_user_name_user.should_not be_valid
-  end
-  
-  it "should reject user_names that are too long" do
-    long_user_name = "a" * 21
-    long_user_name_user = User.new(@attr.merge(:user_name => long_user_name))
-    long_user_name_user.should_not be_valid
-  end
-  
-  it "should require unique user_names" do
+  it "should require unique email address" do
     valid_user = User.create!(@attr)
     invalid_user = User.new(@attr)
     invalid_user.should_not be_valid
@@ -113,7 +101,7 @@ describe User do
     describe "authenticate method" do
 
       it "should return nil on user_name/password mismatch" do
-        wrong_password_user = User.authenticate(@attr[:user_name], "wrongpass")
+        wrong_password_user = User.authenticate(@attr[:email], "wrongpass")
         wrong_password_user.should be_nil
       end
 
@@ -123,7 +111,7 @@ describe User do
       end
 
       it "should return the user on user_name/password match" do
-        matching_user = User.authenticate(@attr[:user_name], @attr[:password])
+        matching_user = User.authenticate(@attr[:email], @attr[:password])
         matching_user.should == @user
       end
     end
