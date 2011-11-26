@@ -136,4 +136,52 @@ describe User do
       @user.should be_admin
     end
   end
+
+  describe "supervisor attribute" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "should respond to supervisor" do
+      @user.should respond_to(:supervisor)
+    end
+
+    it "should not be a supervisor by default" do
+      @user.should_not be_supervisor
+    end
+
+    it "should be convertible to a supervisor" do
+      @user.toggle!(:supervisor)
+      @user.should be_supervisor
+    end
+  end
+
+  describe "pay_sheet association" do
+    before(:each) do
+      @user = User.create(@attr)
+      @supervisor = User.create(@attr.merge(:name => "supervisor",
+                                            :email => "sup@utoronto.ca"))
+      @supervisor.toggle!(:supervisor)
+      @job1 = Factory(:pay_sheet, :user => @user, :supervisor => @supervisor,
+                      :name => "pay_sheet b")
+      @job2 = Factory(:pay_sheet, :user => @user, :supervisor => nil,
+                      :name => "pay_sheet a")
+    end
+
+    it "should have a pay_sheet attribute" do
+      @user.should respond_to(:pay_sheets)
+    end
+
+    it "should have the right pay_sheets in the right order" do
+      @user.pay_sheets.should == [@job2, @job1]
+    end
+
+    it "should destroy associated pay_sheets" do
+      @user.destroy
+      [@job1, @job2].each do |job|
+        PaySheet.find_by_id(job.id).should be_nil
+      end
+    end
+  end
 end

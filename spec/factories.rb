@@ -12,3 +12,9 @@ end
 Factory.sequence :email do |n|
   "person-#{n}@example.com"
 end
+
+Factory.define :pay_sheet do |job|
+  job.name "default"
+  job.association :user
+  job.association :supervisor
+end
