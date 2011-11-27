@@ -3,6 +3,21 @@ class PayPeriod < ActiveRecord::Base
   validates :end_date, :presence => true
   validate :valid_end_date
 
+  has_many :pay_sheets
+
+
+  def self.gen_next_pay_period_end_date
+    last_pay_period = PayPeriod.last
+    if last_pay_period.nil?
+      next_end_date = Date.today
+      while !next_end_date.sunday?
+        next_end_date + 1
+      end
+        return next_end_date
+    end
+      return last_pay_period.end_date + 14
+  end
+
   private
 
   def valid_end_date

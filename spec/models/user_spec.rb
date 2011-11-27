@@ -193,4 +193,9 @@ describe User do
       end
     end
   end
+
+  describe "pay_sheet association" do
+    it "should have a pay_sheet attribute"
+    it "should have the right pay_sheets in the right order"
+  end
 end

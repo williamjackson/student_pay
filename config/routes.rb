@@ -1,4 +1,12 @@
 StudentPay::Application.routes.draw do
+  get "pay_period/show"
+
+  get "pay_period/new"
+
+  get "pay_period/create"
+
+  get "pay_period/edit"
+
   get "sessions/new"
 
   resources :users

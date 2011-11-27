@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe PayPeriod do
   before(:each) do
-    @valid_date = Date.today
-    while !@valid_date.sunday?
-      @valid_date += 1
-    end
+  @valid_date = PayPeriod.gen_next_pay_period_end_date
   end
 
   it "should create a new instance given valid attributes" do
