@@ -1,6 +1,0 @@
-<strong><%= pay_sheet.name %> </strong>
-<%= "Supervisor: #{pay_sheet.supervisor.name}" unless pay_sheet.supervisor.nil? %>
-<%= link_to "edit", edit_pay_sheet_path(pay_sheet) %>
-<%= link_to "delete", pay_sheet, :method => :delete,
-            :confirm => "You sure?",
-            :title => pay_sheet.name %><br/>

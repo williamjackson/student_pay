@@ -166,30 +166,30 @@ describe User do
     end
   end
 
-  describe "pay_sheet association" do
+  describe "job association" do
     before(:each) do
       @user = User.create(@attr)
       @supervisor = User.create(@attr.merge(:name => "supervisor",
                                             :email => "sup@utoronto.ca"))
       @supervisor.toggle!(:supervisor)
-      @ps1 = Factory(:pay_sheet, :user => @user, :supervisor => @supervisor,
-                      :name => "pay_sheet b")
-      @ps2 = Factory(:pay_sheet, :user => @user, :supervisor => nil,
-                      :name => "pay_sheet a")
+      @ps1 = Factory(:job, :user => @user, :supervisor => @supervisor,
+                      :name => "job b")
+      @ps2 = Factory(:job, :user => @user, :supervisor => nil,
+                      :name => "job a")
     end
 
-    it "should have a pay_sheet attribute" do
-      @user.should respond_to(:pay_sheets)
+    it "should have a job attribute" do
+      @user.should respond_to(:jobs)
     end
 
-    it "should have the right pay_sheets in the right order" do
-      @user.pay_sheets.should == [@ps2, @ps1]
+    it "should have the right jobs in the right order" do
+      @user.jobs.should == [@ps2, @ps1]
     end
 
-    it "should destroy associated pay_sheets" do
+    it "should destroy associated jobs" do
       @user.destroy
       [@ps1, @ps2].each do |job|
-        PaySheet.find_by_id(job.id).should be_nil
+        Job.find_by_id(job.id).should be_nil
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PaySheetsController do
+describe JobsController do
   render_views
 
   describe "access control" do
@@ -32,17 +32,17 @@ describe PaySheetsController do
 
     describe "DELETE 'destroy'" do
 
-      describe "non admin user trying to delete someone else's pay sheet'" do
+      describe "non admin user trying to delete someone else's job'" do
         before(:each) do
-          @pay_sheet = Factory(:pay_sheet, :user_id => @sup.id)
+          @job = Factory(:job, :user_id => @sup.id)
         end
         it "should redirect to root" do
-          delete :destroy, :id => @pay_sheet.id
+          delete :destroy, :id => @job.id
           response.should redirect_to(root_path)
         end
-        it "should not delete the pay sheet" do
+        it "should not delete the job" do
           lambda do
-            delete :destroy, :id => @pay_sheet.id
+            delete :destroy, :id => @job.id
           end.should change(User, :count).by(0)
         end
       end
@@ -55,23 +55,23 @@ describe PaySheetsController do
 
       it "should have the right title" do
         get :new
-        response.should have_selector("title", :content => "Add Pay Sheet")
+        response.should have_selector("title", :content => "Add Job")
       end
     end
     describe "GET 'edit'" do
 
       before(:each) do
-        @pay_sheet = Factory(:pay_sheet, :user_id => @user.id)
+        @job = Factory(:job, :user_id => @user.id)
       end
 
       it "should be successful" do
-        get :edit, :id => @pay_sheet
+        get :edit, :id => @job
         response.should be_success
       end
 
       it "should have the right title" do
-        get :edit, :id => @pay_sheet
-        response.should have_selector("title", :content => "Edit pay sheet")
+        get :edit, :id => @job
+        response.should have_selector("title", :content => "Edit Job")
       end
     end
 
@@ -82,19 +82,19 @@ describe PaySheetsController do
           @attr = {:name => ''}
         end
 
-        it "should not create a pay sheet" do
+        it "should not create a job" do
           lambda do
-            post :create, :pay_sheet => @attr
-          end.should_not change(PaySheet, :count)
+            post :create, :job => @attr
+          end.should_not change(Job, :count)
         end
 
         it "should have the right title" do
-          post :create, :pay_sheet => @attr
-          response.should have_selector(:title, :content => "Add Pay Sheet")
+          post :create, :job => @attr
+          response.should have_selector(:title, :content => "Add Job")
         end
 
         it "should render the 'new' page" do
-          post :create, :pay_sheet => @attr
+          post :create, :job => @attr
           response.should render_template('new')
         end
       end
@@ -106,20 +106,20 @@ describe PaySheetsController do
                    :supervisor => @sup.id}
         end
 
-        it "should create a pay sheet" do
+        it "should create a job" do
           lambda do
-            post :create, :pay_sheet => @attr
-          end.should change(PaySheet, :count).by(1)
+            post :create, :job => @attr
+          end.should change(Job, :count).by(1)
         end
 
         it "should redirect to the user show page" do
-          post :create, :pay_sheet => @attr
+          post :create, :job => @attr
           response.should redirect_to(user_path(@user))
         end
 
-        it "should have a pay sheet created method" do
-          post :create, :pay_sheet => @attr
-          flash[:success].should == "Pay sheet added!"
+        it "should have a job created method" do
+          post :create, :job => @attr
+          flash[:success].should == "Job added!"
         end
       end
     end

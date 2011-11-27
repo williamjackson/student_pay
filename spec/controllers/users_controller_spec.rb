@@ -94,23 +94,23 @@ describe UsersController do
         response.should have_selector("td", :content => @user.email)
       end
 
-      it "should have a pay sheet section" do
+      it "should have a job section" do
         get :show, :id => @user
-        response.should have_selector("strong", :content => "Pay Sheets")
+        response.should have_selector("strong", :content => "Jobs")
       end
-      it "should have a link to add a pay sheet" do
+      it "should have a link to add a job" do
         get :show, :id => @user
         response.should have_selector("a", :content => "Add")
       end
 
-      it "should show the user's pay sheets" do
-        @ps1 = Factory(:pay_sheet, :user => @user, :supervisor => nil,
-                       :name => "pay_sheet b")
-        @ps2 = Factory(:pay_sheet, :user => @user, :supervisor => nil,
-                       :name => "pay_sheet a")
+      it "should show the user's job" do
+        @ps1 = Factory(:job, :user => @user, :supervisor => nil,
+                       :name => "job b")
+        @ps2 = Factory(:job, :user => @user, :supervisor => nil,
+                       :name => "job a")
         get :show, :id => @user
-        @user.pay_sheets.each do |pay_sheet|
-          response.should have_selector("strong", :content => pay_sheet.name)
+        @user.jobs.each do |job|
+          response.should have_selector("strong", :content => job.name)
         end
       end
     end

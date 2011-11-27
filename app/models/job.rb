@@ -1,4 +1,4 @@
-class PaySheet < ActiveRecord::Base
+class Job < ActiveRecord::Base
   attr_accessible :name, :rate, :supervisor_id
 
   belongs_to :user
