@@ -7,6 +7,7 @@ namespace :db do
                          :password => "foobar",
                          :password_confirmation => "foobar")
     admin.toggle!(:admin)
+    admin.toggle!(:supervisor)
 
     99.times do |n|
       name = Faker::Name.name

@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111125220937) do
+ActiveRecord::Schema.define(:version => 20111126163024) do
+
+  create_table "pay_sheets", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "supervisor_id"
+    t.string   "name"
+    t.decimal  "rate",          :precision => 8, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pay_sheets", ["supervisor_id"], :name => "index_pay_sheets_on_supervisor_id"
+  add_index "pay_sheets", ["user_id", "name"], :name => "index_pay_sheets_on_user_id_and_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -21,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20111125220937) do
     t.string   "encrypted_password"
     t.string   "salt"
     t.boolean  "admin",              :default => false
+    t.boolean  "supervisor",         :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

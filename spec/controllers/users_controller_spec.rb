@@ -17,6 +17,7 @@ describe UsersController do
 
       before(:each) do
         @user = test_sign_in(Factory(:user))
+        @user.toggle!(:admin)
         second = Factory(:user, :name => "Bob", :email => "another@example.com")
         third = Factory(:user, :name => "Ben", :email => "another@example.net")
 
@@ -25,6 +26,12 @@ describe UsersController do
           @users << Factory(:user, :name => Factory.next(:name),
                             :email => Factory.next(:email))
         end
+      end
+
+      it "should deny access for non-admin users" do
+        @user.toggle!(:admin)
+         get :index
+        response.should redirect_to(root_path)
       end
 
       it "should be successful" do
@@ -72,6 +79,40 @@ describe UsersController do
     it "should find the right user" do
       get :show, :id => @user
       assigns(:user).should == @user
+    end
+
+    describe "side bar" do
+
+      it "should have the user's name" do
+        get :show, :id => @user
+        response.should have_selector("strong", :content => "Name")
+        response.should have_selector("td", :content => @user.name)
+      end
+      it "should have the user's email" do
+        get :show, :id => @user
+        response.should have_selector("strong", :content => "Email")
+        response.should have_selector("td", :content => @user.email)
+      end
+
+      it "should have a pay sheet section" do
+        get :show, :id => @user
+        response.should have_selector("strong", :content => "Pay Sheets")
+      end
+      it "should have a link to add a pay sheet" do
+        get :show, :id => @user
+        response.should have_selector("a", :content => "Add")
+      end
+
+      it "should show the user's pay sheets" do
+        @ps1 = Factory(:pay_sheet, :user => @user, :supervisor => nil,
+                       :name => "pay_sheet b")
+        @ps2 = Factory(:pay_sheet, :user => @user, :supervisor => nil,
+                       :name => "pay_sheet a")
+        get :show, :id => @user
+        @user.pay_sheets.each do |pay_sheet|
+          response.should have_selector("strong", :content => pay_sheet.name)
+        end
+      end
     end
   end
 
