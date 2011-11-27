@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20111126163024) do
 
-  create_table "pay_sheets", :force => true do |t|
+  create_table "jobs", :force => true do |t|
     t.integer  "user_id"
     t.integer  "supervisor_id"
     t.string   "name"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(:version => 20111126163024) do
     t.datetime "updated_at"
   end
 
-  add_index "pay_sheets", ["supervisor_id"], :name => "index_pay_sheets_on_supervisor_id"
-  add_index "pay_sheets", ["user_id", "name"], :name => "index_pay_sheets_on_user_id_and_name", :unique => true
+  add_index "jobs", ["supervisor_id"], :name => "index_jobs_on_supervisor_id"
+  add_index "jobs", ["user_id", "name"], :name => "index_jobs_on_user_id_and_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name"

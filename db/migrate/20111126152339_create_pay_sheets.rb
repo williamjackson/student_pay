@@ -1,6 +1,6 @@
 class CreatePaySheets < ActiveRecord::Migration
   def change
-    create_table :pay_sheets do |t|
+    create_table :jobs do |t|
       t.integer :user_id
       t.integer :supervisor_id
       t.string :name
@@ -9,7 +9,7 @@ class CreatePaySheets < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :pay_sheets, [:user_id, :name], :unique => true
-    add_index :pay_sheets, :supervisor_id
+    add_index :jobs, [:user_id, :name], :unique => true
+    add_index :jobs, :supervisor_id
   end
 end
