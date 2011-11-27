@@ -14,9 +14,7 @@
           <ul class="pay_sheets">
             <% @user.pay_sheets.each do |pay_sheet| %>
                 <li>
-                 <strong><%= pay_sheet.name%> </strong>
-                  <%= "(#{pay_sheet.supervisor.name})" unless pay_sheet.supervisor.nil?%>
-                  <%= link_to "edit", edit_pay_sheet_path(pay_sheet) %> <br />
+                    <%= render "pay_sheets/pay_sheet", :pay_sheet => pay_sheet %>
                 </li>
             <% end %>
           </ul>

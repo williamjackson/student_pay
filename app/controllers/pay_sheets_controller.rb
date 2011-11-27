@@ -1,6 +1,6 @@
 class PaySheetsController < ApplicationController
   before_filter :authenticate
-  before_filter :correct_user, :only => [:edit, :update, :destroy]
+  before_filter :authorized_user, :only => [:edit, :update, :destroy]
 
   def new
     @pay_sheet = current_user.pay_sheets.new
@@ -42,7 +42,7 @@ class PaySheetsController < ApplicationController
 
   private
 
-    def correct_user
+    def authorized_user
     @user = User.find(PaySheet.find(params[:id]).user_id)
     redirect_to(root_path) unless (current_user?(@user) || current_user.admin?)
   end
