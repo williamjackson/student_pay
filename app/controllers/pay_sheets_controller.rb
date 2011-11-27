@@ -35,9 +35,11 @@ class PaySheetsController < ApplicationController
   end
 
   def destroy
-    PaySheet.find(params[:id]).destroy
+    pay_sheet = PaySheet.find(params[:id])
+    pay_sheet_user = User.find(pay_sheet.user_id)
+    pay_sheet.destroy
     flash[:success] = "Pay sheet destroyed."
-    redirect_to user_path
+    redirect_to user_path pay_sheet_user
   end
 
   private
