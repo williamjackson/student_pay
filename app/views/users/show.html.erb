@@ -1,14 +1,26 @@
 <table class="profile" summary="Profile information">
-	<tr>
-		<td class="main">
-			<h1>
-				<%= @user.name %>
-			</h1>
-            <%= link_to "Edit User", edit_user_path %>
-		</td>
-		<td class="sidebar">
-			<strong>Name</strong> <%= @user.name %> <br />
-			<strong>Email</strong> <%= @user.email %> <br />
-		</td>
-	</tr>
-</table>	
+  <tr>
+    <td class="main">
+      <h1>
+        <%= @user.name %>
+      </h1>
+      <%= link_to "Edit User", edit_user_path %>
+    </td>
+    <td class="sidebar">
+      <strong>Name</strong> <%= @user.name %> <br/>
+      <strong>Email</strong> <%= @user.email %> <br/>
+      <strong>Pay Sheets </strong> <%= link_to "Add", new_pay_sheet_path %> <br />
+      <% unless @user.pay_sheets.empty? %>
+          <ul class="pay_sheets">
+            <% @user.pay_sheets.each do |pay_sheet| %>
+                <li>
+                 <strong><%= pay_sheet.name%> </strong>
+                  <%= "(#{pay_sheet.supervisor.name})" unless pay_sheet.supervisor.nil?%>
+                  <%= link_to "edit", edit_pay_sheet_path(pay_sheet) %> <br />
+                </li>
+            <% end %>
+          </ul>
+      <% end %>
+    </td>
+  </tr>
+</table>

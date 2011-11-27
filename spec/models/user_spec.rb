@@ -48,6 +48,15 @@ describe User do
     end
   end
 
+  it "should return a list of supervisors" do
+    sup = User.create(@attr)
+    sup.toggle!(:supervisor)
+    user = User.create(@attr.merge(:email => "test@test.com"))
+    sups = User.supervisors
+    sups.should == [sup]
+
+  end
+
   describe "password validations" do
 
     it "should require a password" do
@@ -163,9 +172,9 @@ describe User do
       @supervisor = User.create(@attr.merge(:name => "supervisor",
                                             :email => "sup@utoronto.ca"))
       @supervisor.toggle!(:supervisor)
-      @job1 = Factory(:pay_sheet, :user => @user, :supervisor => @supervisor,
+      @ps1 = Factory(:pay_sheet, :user => @user, :supervisor => @supervisor,
                       :name => "pay_sheet b")
-      @job2 = Factory(:pay_sheet, :user => @user, :supervisor => nil,
+      @ps2 = Factory(:pay_sheet, :user => @user, :supervisor => nil,
                       :name => "pay_sheet a")
     end
 
@@ -174,12 +183,12 @@ describe User do
     end
 
     it "should have the right pay_sheets in the right order" do
-      @user.pay_sheets.should == [@job2, @job1]
+      @user.pay_sheets.should == [@ps2, @ps1]
     end
 
     it "should destroy associated pay_sheets" do
       @user.destroy
-      [@job1, @job2].each do |job|
+      [@ps1, @ps2].each do |job|
         PaySheet.find_by_id(job.id).should be_nil
       end
     end

@@ -3,6 +3,7 @@ StudentPay::Application.routes.draw do
 
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :pay_sheets
 
   match 'signin', :to => 'sessions#new'
   match 'signout', :to => 'sessions#destroy'

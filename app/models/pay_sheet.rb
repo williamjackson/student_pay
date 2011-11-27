@@ -13,7 +13,6 @@ class PaySheet < ActiveRecord::Base
 
   validate :valid_supervisor
 
-
   private
 
   def valid_supervisor

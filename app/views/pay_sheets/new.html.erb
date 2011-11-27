@@ -1,0 +1,9 @@
+<h1>Add Pay Sheet</h1>
+
+<%= form_for(@pay_sheet) do |f| %>
+    <%= render 'fields', :f => f %>
+    <div class="actions">
+      <%= f.submit "Add pay sheet" %>
+    </div>
+<% end %>
+
