@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111126163024) do
+ActiveRecord::Schema.define(:version => 20111127161948) do
 
   create_table "jobs", :force => true do |t|
     t.integer  "user_id"
@@ -25,9 +25,18 @@ ActiveRecord::Schema.define(:version => 20111126163024) do
   add_index "jobs", ["supervisor_id"], :name => "index_jobs_on_supervisor_id"
   add_index "jobs", ["user_id", "name"], :name => "index_jobs_on_user_id_and_name", :unique => true
 
+  create_table "pay_periods", :force => true do |t|
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pay_periods", ["end_date"], :name => "index_pay_periods_on_end_date", :unique => true
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
+    t.string   "user_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password"
@@ -36,6 +45,6 @@ ActiveRecord::Schema.define(:version => 20111126163024) do
     t.boolean  "supervisor",         :default => false
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["user_name"], :name => "index_users_on_user_name", :unique => true
 
 end
