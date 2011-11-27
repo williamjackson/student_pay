@@ -15,7 +15,7 @@
           <ul class="jobs">
             <% @user.jobs.each do |job| %>
                 <li>
-                    <%= render "jobs/_job", :job => job %>
+                    <%= render "jobs/job", :job => job %>
                  <strong><%= job.name%> </strong>
                   <%= "(#{job.supervisor.name})" unless job.supervisor.nil?%>
                   <%= link_to "edit", edit_job_path(job) %> <br />
