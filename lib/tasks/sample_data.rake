@@ -19,13 +19,8 @@ namespace :db do
                    :password_confirmation => password)
     end
 
-    pay_period_date = Date.today
-    while !pay_period_date.sunday?
-      pay_period_date + 1
-    end
     10.times do
-        PayPeriod.create!(:end_date => pay_period_date)
-      pay_period_date + 14
+        PayPeriod.create!(:end_date => PayPeriod.gen_next_pay_period_end_date)
     end
   end
 

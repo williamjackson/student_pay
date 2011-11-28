@@ -3,4 +3,5 @@
 <%= link_to "edit", edit_job_path(job) %>
 <%= link_to "delete", job, :method => :delete,
             :confirm => "You sure?",
-            :title => job.name %><br/>
+            :title => job.name %>
+<%= link_to "pay sheet", new_pay_sheet_path(:job_id => job) %>

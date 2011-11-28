@@ -1,0 +1,10 @@
+<table class="week">
+  <tr>
+    <th>Date</th>
+    <th>Shift</th>
+    <th>Hours</th>
+  </tr>
+  <% week.each do |shift| %>
+      <%= render 'shift', :shift => shift, :f => f %>
+  <% end %>
+</table>

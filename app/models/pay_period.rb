@@ -18,6 +18,9 @@ class PayPeriod < ActiveRecord::Base
       return last_pay_period.end_date + 14
   end
 
+  def self.current_pay_period
+    PayPeriod.first(:conditions => ["end_date >= ? AND end_date <= ?", Date.today, Date.today + 14])
+  end
   private
 
   def valid_end_date

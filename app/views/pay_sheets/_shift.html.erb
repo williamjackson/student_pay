@@ -1,0 +1,20 @@
+
+<%= f.fields_for shift do |f| %>
+       <tr class="shift">
+      <td>
+        <div class="date_field">
+          <%= f.text_field :date %>
+        </div>
+      </td>
+      <td>
+        <div class="shift_field">
+          <%= f.text_field :shift %>
+        </div>
+      </td>
+      <td>
+        <div class="hours_field">
+          <%= f.text_field :hours %>
+        </div>
+      </td>
+    </tr>
+<% end %>
