@@ -10,15 +10,12 @@
       <strong>Name</strong> <%= @user.name %> <br/>
       <strong>Email</strong> <%= @user.email %> <br/>
 
-      <strong>Jobs </strong> <%= link_to "Add", new_job_path %> <br />
+      <strong>Jobs </strong> <%= link_to "Add", new_job_path %> <br/>
       <% unless @user.jobs.empty? %>
           <ul class="jobs">
             <% @user.jobs.each do |job| %>
                 <li>
-                    <%= render "jobs/job", :job => job %>
-                 <strong><%= job.name%> </strong>
-                  <%= "(#{job.supervisor.name})" unless job.supervisor.nil?%>
-                  <%= link_to "edit", edit_job_path(job) %> <br />
+                  <%= render "jobs/job", :job => job %>
                 </li>
             <% end %>
           </ul>

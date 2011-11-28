@@ -10,6 +10,6 @@ require 'spec_helper'
 #     end
 #   end
 # end
-describe PayPeriodHelper do
+describe PayPeriodsHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

@@ -4,8 +4,8 @@ describe Shift do
   before(:each) do
     @user = Factory(:user)
     @job  = Factory(:job, :user => @user)
-    @pay_period = Factory(:pay_period)
-    @pay_sheet = Factory(:pay_sheet, :pay_period => @pay_period, :job => @job)
+    @pay_period = Factory(:pay_periods)
+    @pay_sheet = Factory(:pay_sheet, :pay_periods => @pay_period, :job => @job)
     @attr = {:date => @pay_period.end_date, :shift => "9-12", :hours => 3}
   end
 

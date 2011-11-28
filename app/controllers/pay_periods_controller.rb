@@ -1,4 +1,4 @@
-class PayPeriodController < ApplicationController
+class PayPeriodsController < ApplicationController
   def show
   end
 

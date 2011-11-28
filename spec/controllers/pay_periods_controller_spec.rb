@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PayPeriodController do
+describe PayPeriodsController do
 
   describe "GET 'show'" do
     it "returns http success" do

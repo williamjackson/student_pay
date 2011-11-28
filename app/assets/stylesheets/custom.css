@@ -1,5 +1,5 @@
 .container {
-	width: 710px;
+	width: 824px;
 }
 
 body {
@@ -12,11 +12,11 @@ header {
 
 header img {
 	padding: 1em;
-	background: #fff;
+	background: #33ccff;
 }
 
 section {
-	margin-top: 1em;
+	margin-top: 0em;
 	font-size: 120%;
 	padding: 20px;
 	background: #fff;
@@ -28,7 +28,7 @@ section h1 {
 
 /* Links */
 a {
-	color: #09c;
+	color: #33ccff;
 	text-decoration: none;
 }
 
@@ -49,7 +49,7 @@ nav {
 
 nav {
   background-color: white;
-  padding: 0 0.7em;
+  padding: 0em;
   white-space: nowrap;
 }
 
@@ -81,8 +81,8 @@ nav ul li a:hover {
 
 footer {
   text-align: center;
-  margin-top: 10px;
-  width: 710px;
+  margin-top: 5px;
+  width: 824px;
   margin-left: auto;
   margin-right: auto;
 }

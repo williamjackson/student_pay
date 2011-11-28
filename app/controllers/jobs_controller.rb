@@ -27,7 +27,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
     if @job.update_attributes(params[:job])
       flash[:success] = "Job updated."
-      redirect_to current_user
+      redirect_to user_path(@job.user)
     else
       @title = "Edit Job"
       render 'edit'
@@ -35,9 +35,11 @@ class JobsController < ApplicationController
   end
 
   def destroy
-    Job.find(params[:id]).destroy
+    job = Job.find(params[:id])
+    user = job.user
+    job.destroy
     flash[:success] = "Job destroyed."
-    redirect_to user_path
+    redirect_to user_path(user)
   end
 
   private

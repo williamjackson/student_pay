@@ -18,12 +18,12 @@ Factory.define :job do |job|
   job.association :user
 end
 
-Factory.define :pay_period do |pay_period|
+Factory.define :pay_periods do |pay_period|
   pay_period.end_date PayPeriod.gen_next_pay_period_end_date
 end
 
 Factory.define :pay_sheet do |pay_sheet|
-  pay_sheet.association :pay_period
+  pay_sheet.association :pay_periods
   pay_sheet.association :job
 end
 
