@@ -1,8 +1,17 @@
 StudentPay::Application.routes.draw do
+  get "pay_period/show"
+
+  get "pay_period/new"
+
+  get "pay_period/create"
+
+  get "pay_period/edit"
+
   get "sessions/new"
 
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :jobs
 
   match 'signin', :to => 'sessions#new'
   match 'signout', :to => 'sessions#destroy'

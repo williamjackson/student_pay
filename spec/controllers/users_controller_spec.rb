@@ -17,6 +17,7 @@ describe UsersController do
 
       before(:each) do
         @user = test_sign_in(Factory(:user))
+        @user.toggle!(:admin)
         second = Factory(:user, :name => "Bob", :email => "another@example.com")
         third = Factory(:user, :name => "Ben", :email => "another@example.net")
 
@@ -25,6 +26,12 @@ describe UsersController do
           @users << Factory(:user, :name => Factory.next(:name),
                             :email => Factory.next(:email))
         end
+      end
+
+      it "should deny access for non-admin users" do
+        @user.toggle!(:admin)
+         get :index
+        response.should redirect_to(root_path)
       end
 
       it "should be successful" do
@@ -72,6 +79,40 @@ describe UsersController do
     it "should find the right user" do
       get :show, :id => @user
       assigns(:user).should == @user
+    end
+
+    describe "side bar" do
+
+      it "should have the user's name" do
+        get :show, :id => @user
+        response.should have_selector("strong", :content => "Name")
+        response.should have_selector("td", :content => @user.name)
+      end
+      it "should have the user's email" do
+        get :show, :id => @user
+        response.should have_selector("strong", :content => "Email")
+        response.should have_selector("td", :content => @user.email)
+      end
+
+      it "should have a job section" do
+        get :show, :id => @user
+        response.should have_selector("strong", :content => "Jobs")
+      end
+      it "should have a link to add a job" do
+        get :show, :id => @user
+        response.should have_selector("a", :content => "Add")
+      end
+
+      it "should show the user's job" do
+        @ps1 = Factory(:job, :user => @user, :supervisor => nil,
+                       :name => "job b")
+        @ps2 = Factory(:job, :user => @user, :supervisor => nil,
+                       :name => "job a")
+        get :show, :id => @user
+        @user.jobs.each do |job|
+          response.should have_selector("strong", :content => job.name)
+        end
+      end
     end
   end
 

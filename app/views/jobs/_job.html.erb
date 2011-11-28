@@ -1,0 +1,6 @@
+<strong><%= job.name %> </strong>
+<%= "Supervisor: #{job.supervisor.name}" unless job.supervisor.nil? %>
+<%= link_to "edit", edit_job_path(job) %>
+<%= link_to "delete", job, :method => :delete,
+            :confirm => "You sure?",
+            :title => job.name %><br/>

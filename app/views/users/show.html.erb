@@ -1,14 +1,28 @@
 <table class="profile" summary="Profile information">
-	<tr>
-		<td class="main">
-			<h1>
-				<%= @user.name %>
-			</h1>
-            <%= link_to "Edit User", edit_user_path %>
-		</td>
-		<td class="sidebar">
-			<strong>Name</strong> <%= @user.name %> <br />
-			<strong>Email</strong> <%= @user.email %> <br />
-		</td>
-	</tr>
-</table>	
+  <tr>
+    <td class="main">
+      <h1>
+        <%= @user.name %>
+      </h1>
+      <%= link_to "Edit User", edit_user_path %>
+    </td>
+    <td class="sidebar">
+      <strong>Name</strong> <%= @user.name %> <br/>
+      <strong>Email</strong> <%= @user.email %> <br/>
+
+      <strong>Jobs </strong> <%= link_to "Add", new_job_path %> <br />
+      <% unless @user.jobs.empty? %>
+          <ul class="jobs">
+            <% @user.jobs.each do |job| %>
+                <li>
+                    <%= render "jobs/job", :job => job %>
+                 <strong><%= job.name%> </strong>
+                  <%= "(#{job.supervisor.name})" unless job.supervisor.nil?%>
+                  <%= link_to "edit", edit_job_path(job) %> <br />
+                </li>
+            <% end %>
+          </ul>
+      <% end %>
+    </td>
+  </tr>
+</table>

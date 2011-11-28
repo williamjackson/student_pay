@@ -1,0 +1,9 @@
+<h1>Add job</h1>
+
+<%= form_for(@job) do |f| %>
+    <%= render 'fields', :f => f %>
+    <div class="actions">
+      <%= f.submit "Add job" %>
+    </div>
+<% end %>
+

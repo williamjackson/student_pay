@@ -48,6 +48,15 @@ describe User do
     end
   end
 
+  it "should return a list of supervisors" do
+    sup = User.create(@attr)
+    sup.toggle!(:supervisor)
+    user = User.create(@attr.merge(:email => "test@test.com"))
+    sups = User.supervisors
+    sups.should == [sup]
+
+  end
+
   describe "password validations" do
 
     it "should require a password" do
@@ -135,5 +144,58 @@ describe User do
       @user.toggle!(:admin)
       @user.should be_admin
     end
+  end
+
+  describe "supervisor attribute" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "should respond to supervisor" do
+      @user.should respond_to(:supervisor)
+    end
+
+    it "should not be a supervisor by default" do
+      @user.should_not be_supervisor
+    end
+
+    it "should be convertible to a supervisor" do
+      @user.toggle!(:supervisor)
+      @user.should be_supervisor
+    end
+  end
+
+  describe "job association" do
+    before(:each) do
+      @user = User.create(@attr)
+      @supervisor = User.create(@attr.merge(:name => "supervisor",
+                                            :email => "sup@utoronto.ca"))
+      @supervisor.toggle!(:supervisor)
+      @ps1 = Factory(:job, :user => @user, :supervisor => @supervisor,
+                      :name => "job b")
+      @ps2 = Factory(:job, :user => @user, :supervisor => nil,
+                      :name => "job a")
+    end
+
+    it "should have a job attribute" do
+      @user.should respond_to(:jobs)
+    end
+
+    it "should have the right jobs in the right order" do
+      @user.jobs.should == [@ps2, @ps1]
+    end
+
+    it "should destroy associated jobs" do
+      @user.destroy
+      [@ps1, @ps2].each do |job|
+        Job.find_by_id(job.id).should be_nil
+      end
+    end
+  end
+
+  describe "pay_sheet association" do
+    it "should have a pay_sheet attribute"
+    it "should have the right pay_sheets in the right order"
   end
 end
