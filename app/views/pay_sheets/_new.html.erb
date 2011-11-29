@@ -1,0 +1,6 @@
+<%= form_for(@pay_sheet) do |f| %>
+    <%= render 'pay_sheets/fields', :f => f %>
+    <div class="actions">
+      <%= f.submit "Submit" %>
+    </div>
+<% end %>

@@ -5,7 +5,7 @@
     <th>Hours</th>
   </tr>
   <% @shifts[0..6].each do |shift| %>
-      <%= render 'shift', :shift => shift, :f => f %>
+      <%= render 'pay_sheets/shift', :shift => shift, :f => f %>
   <% end %>
 </table>
 
@@ -16,6 +16,6 @@
     <th>Hours</th>
   </tr>
   <% @shifts[7..13].each do |shift| %>
-      <%= render 'shift', :shift => shift, :f => f %>
+      <%= render 'pay_sheets/shift', :shift => shift, :f => f %>
   <% end %>
 </table>

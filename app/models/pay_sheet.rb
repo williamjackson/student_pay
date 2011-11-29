@@ -13,12 +13,15 @@ class PaySheet < ActiveRecord::Base
   def total_hours
     i = 0
     self.shifts.each do |shift|
-      i += shift.hours
+      i += shift.hours if !shift.hours.nil?
     end
     i
   end
 
+  def self.current
+    PaySheet.where(:PayPeriod => PayPeriod.current)
+  end
   def current_pay_period?
-    self.pay_period == PayPeriod.current_pay_period
+    self.pay_period == PayPeriod.current
   end
 end

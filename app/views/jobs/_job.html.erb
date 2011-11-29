@@ -4,4 +4,5 @@
 <%= link_to "delete", job, :method => :delete,
             :confirm => "You sure?",
             :title => job.name %>
-<%= link_to "pay sheet", new_pay_sheet_path(:job_id => job) %>
+
+<%= link_to "pay sheet", new_pay_sheet_path(:job_id => job) if current_user.admin? %>

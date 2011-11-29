@@ -1,22 +1,14 @@
 class PaySheetsController < ApplicationController
+  include PaySheetsHelper
+
   def show
   end
 
   def new
-    @job = Job.find(params[:job_id])
-    @user = @job.user
-    @pay_period = PayPeriod.current_pay_period
     @title = "New Pay Sheet"
-    @pay_sheet = PaySheet.new(:job_id => @job.id, :pay_period_id => @pay_period.id)
-    shift_date = @pay_period.end_date
-
-    @shifts = []
-    14.times do
-      @shifts << @pay_sheet.shifts.build(:date => shift_date)
-      shift_date -= 1
-    end
-    @shifts.sort! { |a, b| a.date <=> b.date }
-
+    @job = Job.find(params[:job_id])
+    @pay_period = PayPeriod.current
+    new_pay_sheet
   end
 
   def create
@@ -27,17 +19,45 @@ class PaySheetsController < ApplicationController
       end
     end
     if @pay_sheet.save
-      redirect_to @pay_sheet.job.user
+       flash[:success] = "Pay sheet created."
+      redirect_to root_path
     else
-      @shifts = @pay_sheet.shifts
+      edit_pay_sheet
       render :action => 'new'
     end
   end
 
   def edit
+    @title = "Edit Pay Sheet"
+    @pay_sheet = PaySheet.find(params[:id])
+    edit_pay_sheet
   end
 
   def update
+    @pay_sheet = PaySheet.find(params[:id])
+    success = true
+
+    params[:shifts].each_value do |shift|
+      begin
+        original_shift = @pay_sheet.shifts.find_by_date(shift['date'])
+        if !shift["hours"].blank? || !shift["shift"].blank?
+          @pay_sheet.shifts.create!(shift) if original_shift.nil?
+          original_shift.update_attributes!(shift) if original_shift
+        else
+          original_shift.destroy if !original_shift.nil?
+        end
+      rescue ActiveRecord::RecordInvalid
+        success = false
+      end
+    end
+    if success
+      flash[:success] = "Pay sheet updated."
+      redirect_to root_path
+    else
+      edit_pay_sheet
+      flash[:error] = "Pay sheet failed to update."
+      render :action => 'edit'
+    end
   end
 
   def destroy

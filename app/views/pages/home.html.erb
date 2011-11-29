@@ -1,3 +1,17 @@
-<h1>Welcome to Victoria University Libraries part-time pay app</h1>
-<p>This app is a work in progress.</p>
-  <%= render "sessions/sign_in" %>
+<h1>Victoria University Libraries Part-Time Pay</h1>
+<% if signed_in? %>
+    <% @jobs.each do |job| %>
+        <% @job = job %>
+        <% @pay_sheet = job.pay_sheets.find_by_pay_period_id(@pay_period.id) %>
+        <% if @pay_sheet.nil? %>
+            <% new_pay_sheet %>
+            <%= render 'pay_sheets/new' %>
+        <% else %>
+            <% edit_pay_sheet %>
+            <%= render 'pay_sheets/edit' %>
+        <% end %>
+        <br/>
+    <% end %>
+<% else %>
+    <%= render "sessions/sign_in" %>
+<% end %>
