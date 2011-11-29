@@ -1,19 +1,20 @@
 
-<%= f.fields_for shift do |f| %>
+<%= fields_for "shifts[#{shift.date}]", shift do |f| %>
        <tr class="shift">
       <td>
-        <div class="date_field">
-          <%= f.text_field :date %>
+        <div class="date">
+          <%= shift.date.strftime("%A, %b %d") %>
+          <%= f.hidden_field :date %>
         </div>
       </td>
       <td>
         <div class="shift_field">
-          <%= f.text_field :shift %>
+          <%= f.text_field :shift, :size => "8" %>
         </div>
       </td>
       <td>
         <div class="hours_field">
-          <%= f.text_field :hours %>
+          <%= f.text_field :hours, {:maxlength => "4"} %>
         </div>
       </td>
     </tr>

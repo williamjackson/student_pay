@@ -2,9 +2,28 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-div.hours_field input {
-    font-size: 14px;
-    padding: 2px;
-    size: 2;
+/* Form */
+.week {
+    width: 50%;
+}
 
+.week1 {
+    float: left;
+}
+
+.week2 {
+    float: right;
+}
+.week th:first-child {
+
+    width: 40% !important;
+    text-align: left;
+}
+
+.week th:second-child {
+    width: 10% !important;
+}
+
+.clear {
+    clear: both;
 }

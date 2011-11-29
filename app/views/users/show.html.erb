@@ -5,6 +5,12 @@
         <%= @user.name %>
       </h1>
       <%= link_to "Edit User", edit_user_path %>
+      <% unless @pay_sheets.empty? %>
+        <table class="pay_sheets" summary="User pay sheets">
+          <%= render @pay_sheets %>
+        </table>
+        <%= will_paginate @pay_sheets %>
+      <% end %>
     </td>
     <td class="sidebar">
       <strong>Name</strong> <%= @user.name %> <br/>

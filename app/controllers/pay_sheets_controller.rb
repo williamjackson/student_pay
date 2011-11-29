@@ -12,16 +12,26 @@ class PaySheetsController < ApplicationController
 
     @shifts = []
     14.times do
-     @shifts << @pay_sheet.shifts.build(:date => shift_date)
+      @shifts << @pay_sheet.shifts.build(:date => shift_date)
       shift_date -= 1
     end
+    @shifts.sort! { |a, b| a.date <=> b.date }
 
-    @shifts.sort!{ |a,b| a.date <=> b.date }
-    @week1 = @shifts[0..6]
-    @week2 = @shifts[7..13]
   end
 
   def create
+    @pay_sheet = PaySheet.new(params[:pay_sheet])
+    params[:shifts].each_value do |shift|
+      if !shift["hours"].blank?
+        @pay_sheet.shifts.build(shift)
+      end
+    end
+    if @pay_sheet.save
+      redirect_to @pay_sheet.job.user
+    else
+      @shifts = @pay_sheet.shifts
+      render :action => 'new'
+    end
   end
 
   def edit

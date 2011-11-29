@@ -1,10 +1,21 @@
-<table class="week">
+<table class="week1 week">
   <tr>
     <th>Date</th>
     <th>Shift</th>
     <th>Hours</th>
   </tr>
-  <% week.each do |shift| %>
+  <% @shifts[0..6].each do |shift| %>
+      <%= render 'shift', :shift => shift, :f => f %>
+  <% end %>
+</table>
+
+<table class="week2 week">
+  <tr>
+    <th>Date</th>
+    <th>Shift</th>
+    <th>Hours</th>
+  </tr>
+  <% @shifts[7..13].each do |shift| %>
       <%= render 'shift', :shift => shift, :f => f %>
   <% end %>
 </table>
