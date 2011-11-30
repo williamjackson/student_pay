@@ -20,7 +20,7 @@ class PaySheetsController < ApplicationController
     end
     if @pay_sheet.save
        flash[:success] = "Pay sheet created."
-      redirect_to root_path
+      redirect_to current_user.home_path
     else
       edit_pay_sheet
       render :action => 'new'

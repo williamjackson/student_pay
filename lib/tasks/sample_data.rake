@@ -6,17 +6,18 @@ namespace :db do
                          :email => "jones@utoronto.ca",
                          :password => "foobar",
                          :password_confirmation => "foobar")
-    admin.toggle!(:admin)
+    admin.toggle!(:admins)
     admin.toggle!(:supervisor)
 
-    99.times do |n|
+    10.times do |n|
       name = Faker::Name.name
       email = "example-#{n+1}@utoronto.ca"
       password = "password"
-      User.create!(:name => name,
+      user = User.create!(:name => name,
                    :email => email,
                    :password => password,
                    :password_confirmation => password)
+      user.jobs.create!(:name => "default")
     end
 
     10.times do

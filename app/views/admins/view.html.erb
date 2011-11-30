@@ -1,0 +1,13 @@
+<div id="grid_here" style="width:600px; height:400px;">
+</div>
+<script type="text/javascript" charset="utf-8">
+    var grid = new dhtmlXGridObject("grid_here");
+    grid.setImagePath("/assets/dhtmlx/imgs/");
+    grid.setHeader("Name, Rate, Regular Hours, Holiday Hours");
+    grid.setInitWidths("*,100, 100, 100");
+    grid.setSkin("light");
+    grid.init();
+    grid.load("data"); //added !
+</script>
+<input type="button" value="Add" onclick="grid.addRow(grid.uid(),'new user')">
+<input type="button" value="Delete" onclick="grid.deleteSelectedRows()">

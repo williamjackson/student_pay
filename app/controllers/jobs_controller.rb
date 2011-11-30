@@ -37,14 +37,18 @@ class JobsController < ApplicationController
   def destroy
     job = Job.find(params[:id])
     user = job.user
-    job.destroy
-    flash[:success] = "Job destroyed."
+    if job.pay_sheets.nil?
+      job.destroy
+      flash[:success] = "Job destroyed."
+    else
+      flash[:error] = "Can't delete job's which are associated with submitted pay sheets"
+    end
     redirect_to user_path(user)
   end
 
   private
 
-    def correct_user
+  def correct_user
     @user = User.find(Job.find(params[:id]).user_id)
     redirect_to(root_path) unless (current_user?(@user) || current_user.admin?)
   end

@@ -2,7 +2,14 @@
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
-<%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
+<%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
 <!--[if lt IE 8]><%= stylesheet_link_tag 'blueprint/ie' %><![endif]-->
 <%= stylesheet_link_tag 'custom', :media => 'screen' %>
 <%= stylesheet_link_tag 'pay_sheets', :media => 'screen' %>
+<%= javascript_include_tag 'dhtmlx/dhtmlxcommon.js' %>
+<%= javascript_include_tag 'dhtmlx/dhtmlxgrid.js' %>
+<%= javascript_include_tag 'dhtmlx/dhtmlxgridcell.js' %>
+<%= javascript_include_tag 'dhtmlx/dhtmlxdataprocessor.js' %>
+
+<%= stylesheet_link_tag 'dhtmlx/dhtmlxgrid.css' %>
+<%= stylesheet_link_tag 'dhtmlx/skins/dhtmlxgrid_dhx_skyblue.css' %>

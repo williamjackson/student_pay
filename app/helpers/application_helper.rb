@@ -13,4 +13,11 @@ module ApplicationHelper
   def logo
     image_tag("logo.png", :alt => "Sample App")
   end
+
+  def home_path
+    if signed_in?
+      return view_admins_path if current_user.admin?
+      return root_path if current_user.part_time_employee
+    end
+  end
 end

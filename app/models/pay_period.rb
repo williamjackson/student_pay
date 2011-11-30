@@ -7,11 +7,11 @@ class PayPeriod < ActiveRecord::Base
 
 
   def self.gen_next_pay_period_end_date
-    last_pay_period = PayPeriod.last
+    last_pay_period = PayPeriod.first(:order => 'end_date DESC')
     if last_pay_period.nil?
       next_end_date = Date.today
       while !next_end_date.sunday?
-        next_end_date + 1
+        next_end_date += 1
       end
         return next_end_date
     end

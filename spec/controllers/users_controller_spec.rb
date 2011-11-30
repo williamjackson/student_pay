@@ -17,7 +17,7 @@ describe UsersController do
 
       before(:each) do
         @user = test_sign_in(Factory(:user))
-        @user.toggle!(:admin)
+        @user.toggle!(:admins)
         second = Factory(:user, :name => "Bob", :email => "another@example.com")
         third = Factory(:user, :name => "Ben", :email => "another@example.net")
 
@@ -29,7 +29,7 @@ describe UsersController do
       end
 
       it "should deny access for non-admin users" do
-        @user.toggle!(:admin)
+        @user.toggle!(:admins)
          get :index
         response.should redirect_to(root_path)
       end
@@ -323,7 +323,7 @@ describe UsersController do
     describe "as an admin user" do
 
       before(:each) do
-        admin = Factory(:user, :email => "admin@example.com", :admin => true)
+        admin = Factory(:user, :email => "admin@example.com", :admins => true)
         test_sign_in(admin)
       end
 

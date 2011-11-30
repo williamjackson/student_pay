@@ -133,7 +133,7 @@ describe User do
     end
 
     it "should respond to admin" do
-      @user.should respond_to(:admin)
+      @user.should respond_to(:admins)
     end
 
     it "should not be an admin by default" do
@@ -141,7 +141,7 @@ describe User do
     end
 
     it "should be convertible to an admin" do
-      @user.toggle!(:admin)
+      @user.toggle!(:admins)
       @user.should be_admin
     end
   end

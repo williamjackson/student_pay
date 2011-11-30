@@ -1,4 +1,10 @@
 <%= render 'shared/error_messages', :object => f.object %>
+    <span class="pay_period">
+      <strong>
+        <%= @pay_sheet.job.name.capitalize %> pay sheet for
+        week ending <%= @pay_sheet.pay_period.end_date %> <br/>
+      </strong>
+    </span>
 <%= render 'pay_sheets/week_table', :f => f %>
 <%= f.hidden_field :job_id%>
 <%= f.hidden_field :pay_period_id%>
