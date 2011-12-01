@@ -6,6 +6,7 @@ xml.tag!("rows") do
     jobs.each do |job|
       pay_sheet = job.pay_sheets.find_by_pay_period_id(@pay_period)
       xml.tag!("row", {"id" => job.id}) do
+        xml.tag!("cell", (user.file))
         if jobs.size == 1
         xml.tag!("cell", (link_to user.name, user))
         else

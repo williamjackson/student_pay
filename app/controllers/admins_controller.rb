@@ -9,7 +9,8 @@ class AdminsController < ApplicationController
 
   def dbaction
    # called for all db actions
-    job_rate = params["c1"]
+    job_rate = params["c2"]
+    user_file = params['c0']
 
     @mode = params["!nativeeditor_status"]
     @id = params["gr_id"]
@@ -17,6 +18,7 @@ class AdminsController < ApplicationController
       when "updated"
         job = Job.find(@id)
         job.rate = job_rate
+        job.user.file = user_file
         job.save!
         @tid = @id
     end
