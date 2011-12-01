@@ -1,7 +1,5 @@
 <h1>Victoria University Libraries Part-Time Pay</h1>
-<% if signed_in? && current_user.admin? %>
-    <%= render :partial => 'home_admin' %>
-    e
+<% if signed_in? %>
     <%= render :partial => 'home_user' %>
 <% else %>
     <%= render "sessions/sign_in" %>

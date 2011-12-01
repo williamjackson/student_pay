@@ -5,6 +5,21 @@ class AdminsController < ApplicationController
   def data
     @users = User.find_all_by_part_time_employee(true)
     @pay_period = PayPeriod.current
-    render 'data.builder'
+  end
+
+  def dbaction
+   # called for all db actions
+    job_rate = params["c1"]
+
+    @mode = params["!nativeeditor_status"]
+    @id = params["gr_id"]
+    case @mode
+      when "updated"
+        job = Job.find(@id)
+        job.rate = job_rate
+        job.save!
+        @tid = @id
+    end
+
   end
 end

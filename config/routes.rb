@@ -5,6 +5,7 @@ StudentPay::Application.routes.draw do
     collection do
       get 'view'
       get 'data'
+      get 'dbaction'
     end
  end
 

@@ -6,7 +6,7 @@ namespace :db do
                          :email => "jones@utoronto.ca",
                          :password => "foobar",
                          :password_confirmation => "foobar")
-    admin.toggle!(:admins)
+    admin.toggle!(:admin)
     admin.toggle!(:supervisor)
 
     10.times do |n|
