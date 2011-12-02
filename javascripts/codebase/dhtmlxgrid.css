@@ -93,7 +93,7 @@ div.gridbox table.obj td.group_row{
     width:100%;
     border:0px;
     padding:0px;
-    padding-right:1px !ie;
+    padding-right:1px;
     margin:0px;
     font:12px arial;
     overflow:hidden;
