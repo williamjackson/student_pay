@@ -325,7 +325,6 @@ div.gridbox table.hdr td.columnTargetL div.hdrcell{
 	margin:0px;
 	padding:5px 20px 5px 20px ;
 	font-weight:normal;
-	filter:alpha(opacity:75);
 	-moz-opacity:0.75;
 	opacity:0.75;
 }
