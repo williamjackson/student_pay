@@ -23,7 +23,7 @@ div.gridbox_dhx_skyblue table.hdr td div.hdrcell{
 	width:auto;
 }
 html > body /**/ div.gridbox_dhx_skyblue table.hdr td div.hdrcell{
-	width=100%;
+	width:100%;
 }
 div.gridbox_dhx_skyblue table.hdr td {
 	border-width: 1px 1px 1px 1px;
