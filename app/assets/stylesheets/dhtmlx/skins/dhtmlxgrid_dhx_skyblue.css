@@ -46,8 +46,8 @@ div.gridbox table.obj tr  td{
 }
 * html .gridbox .obj td{
     height:auto;
-    padding-top=3px;
-    padding-bottom=3px;
+    padding-top:3px;
+    padding-bottom:3px;
 }
 div.gridbox table.obj.row20px tr  td{
     padding-top:0px;
