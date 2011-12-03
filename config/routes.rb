@@ -1,20 +1,20 @@
 StudentPay::Application.routes.draw do
 
 
-  get "supervisors/index"
-
- resource :admins do
+  resources :supervisors
+  resource :admins do
     collection do
       get 'home'
       get 'data'
       get 'dbaction'
     end
- end
+  end
 
-
-
-
-  resources :users
+  resources :users do
+    collection do
+    get 'home'
+    end
+  end
   resources :sessions, :only => [:new, :create, :destroy]
   resources :jobs
   resources :pay_sheets

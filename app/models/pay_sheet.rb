@@ -2,6 +2,7 @@ class PaySheet < ActiveRecord::Base
 
   belongs_to :job
   belongs_to :pay_period
+  belongs_to :user
 
   has_many :shifts
 

@@ -1,6 +1,10 @@
 <%= form_for(@pay_sheet) do |f| %>
     <%= render 'pay_sheets/fields', :f => f %>
     <div class="actions">
-      <%= f.submit "Submit" %>
+      <% if current_user.admin_or_supervisor? %>
+          <%= f.submit "Approve" %>
+      <% else %>
+          <%= f.submit "Submit" %>
+      <% end %>
     </div>
 <% end %>

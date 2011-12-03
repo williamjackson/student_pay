@@ -4,11 +4,14 @@
     <ul>
       <li><%= link_to "Home", home_path %></li>
       <% if signed_in? %>
-          <li><%= link_to "Users", users_path %></li>
+          <% if current_user.admin? %>
+              <li><%= link_to "Users", users_path %></li>
+          <% end %>
+          <% if current_user.supervisor? %>
+              <li><%= link_to "Students", users_path %></li>
+          <% end %>
+
           <li><%= link_to "Profile", current_user %></li>
-      <% end %>
-      <li><%= link_to "Help", help_path %></li>
-      <% if signed_in? %>
           <li><%= link_to "Sign out", signout_path, :method => :delete %></li>
       <% else %>
           <li><%= link_to "Sign in", signin_path %></li>

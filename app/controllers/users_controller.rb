@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [:edit, :update, :show, :index, :destroy]
+  before_filter :authenticate, :only => [:edit, :update, :show, :index,
+                                         :destroy, :home]
   before_filter :authorized_user, :only => [:edit, :update, :show]
-  before_filter :admin_user, :only => [:destroy, :index]
+  before_filter :admin_user, :only => [:destroy]
+  before_filter :admin_or_supervisor_user, :only => [:index]
 
   def new
     @user = User.new
@@ -43,8 +45,17 @@ class UsersController < ApplicationController
   end
 
   def index
-    @title = "All users"
-    @users = User.paginate(:page => params[:page])
+    if current_user.admin?
+      @title = "All users"
+      @users = User.paginate(:page => params[:page])
+    elsif current_user.supervisor?
+      @title = "Students"
+      @users = User.paginate(
+          :include => :jobs,
+        :order => "users.name ASC",
+        :conditions => ["jobs.department_id == ?", current_user.department],
+        :page => params[:page])
+    end
   end
 
   def destroy
@@ -53,13 +64,16 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def home
+      @jobs = current_user.jobs
+      @pay_period = PayPeriod.current
+  end
+
   private
 
     def authorized_user
     @user = User.find(params[:id])
     authorize_user(@user)
-  end
-
-
+    end
 end
 

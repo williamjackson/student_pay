@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :user_name, :email, :password, :password_confirmation
 
-  has_many :jobs, :dependent => :destroy, :order => "user_name ASC"
+  has_many :jobs, :dependent => :destroy, :order => "name ASC"
   has_many :pay_sheets, :through => :jobs
   belongs_to :department
 
@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
   def self.authenticate_with_salt(id, cookie_salt)
     user = find_by_id(id)
     (user && user.salt == cookie_salt) ? user : nil
+  end
+
+  def admin_or_supervisor?
+    self.admin? || self.supervisor?
   end
 
   private

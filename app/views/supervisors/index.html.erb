@@ -1,5 +1,42 @@
-<% @supervised_jobs.each do |job| %>
-    <ul class="supervised_jobs" >
-      <li><%= "#{job.user.name} (#{job.name})"%></li>
-    </ul>
-<% end %>
+<div class="approved">
+  <% if !@approved_pay_sheets.blank? %>
+      <h3>Approved pay sheets</h3>
+      <% @approved_pay_sheets.each do |pay_sheet| %>
+          <% job = pay_sheet.job %>
+          <ul>
+            <li><%= link_to job.user.name, job.user %>
+              <%= "(#{job.name})" %>
+              <%= link_to "view/update", edit_pay_sheet_path(pay_sheet) %>
+            </li>
+          </ul>
+      <% end %>
+  <% end %>
+
+</div>
+
+<div class="missing">
+  <% if !@jobs_missing_pay_sheets.blank? %>
+      <h3>Missing pay sheets</h3>
+      <% @jobs_missing_pay_sheets.each do |job| %>
+          <ul>
+            <li><%= link_to job.user.name, job.user %>
+              <%= "(#{job.name})" %>
+              <%= link_to "add pay sheet", new_pay_sheet_path(:job_id => job) %>
+            </li>
+          </ul>
+      <% end %>
+  <% end %>
+</div>
+
+<div class="unapproved">
+  <% if !@unapproved_pay_sheets.blank? %>
+      <h3>Pay sheets requiring approval</h3>
+      <% @unapproved_pay_sheets.each do |pay_sheet| %>
+          <%= link_to pay_sheet.job.user.name, pay_sheet.job.user %>
+          <% @pay_sheet = pay_sheet %>
+          <% edit_pay_sheet %>
+          <%= render 'pay_sheets/edit' %>
+      <% end %>
+  <% end %>
+
+</div>

@@ -1,7 +1,11 @@
 <%= form_for(@pay_sheet) do |f| %>
     <%= render 'pay_sheets/fields', :f => f %>
     <div class="actions">
-      <%= f.submit "Update" %>
+      <% if current_user.admin_or_supervisor? %>
+          <%= f.submit "Approve" %>
+      <% else %>
+          <%= f.submit "Update" %>
+      <% end %>
       <span class="total_hours">
         <strong>Total Hours </strong>
         <%= @pay_sheet.total_hours %>

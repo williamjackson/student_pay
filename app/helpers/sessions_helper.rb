@@ -60,16 +60,31 @@ module SessionsHelper
   def admin_user
     unless current_user.admin?
       flash[:error] = "Only admins can access that page."
-      redirect_to(home_path)
+      redirect_to home_path
+    end
+  end
+
+  def admin_or_supervisor_user
+    unless current_user.admin_or_supervisor?
+      flash[:error] = "Only admins and supervisor can access this page."
     end
   end
 
   def authorize_user(user)
-    unless (current_user?(user) || current_user.admin?||
-        current_user.supervisor?)
+    unless (current_user?(user) || current_user.admin_or_supervisor?)
       flash[:error] = "Only admins, supervisor, and the #{user.name} can access
-this page."
+  this page."
       redirect_to(home_path)
+    end
+  end
+
+  def home_path
+    if signed_in?
+      return home_admins_path if current_user.admin?
+      return supervisors_path if current_user.supervisor?
+      home_users_path
+    else
+      root_path
     end
   end
 
