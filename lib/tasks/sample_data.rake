@@ -2,12 +2,30 @@ namespace :db do
   desc "Fill database with sample data"
   task :populate => :environment do
     Rake::Task['db:reset'].invoke
-    admin = User.create!(:name => "jones",
-                         :email => "jones@utoronto.ca",
-                         :password => "foobar",
-                         :password_confirmation => "foobar")
+    admin = User.create!(:name => "Sarah Gough",
+                         :email => "s.gough@utoronto.ca",
+                         :password => "william1",
+                         :password_confirmation => "william1")
     admin.toggle!(:admin)
-    admin.toggle!(:supervisor)
+
+    readers = Department.create!(:name => "Reader Services")
+    systems = Department.create!(:name => "Systems")
+    doug = systems.users.create!(:name => "Douglas Fox",
+                          :email => "douglas.fox@utoronto.ca",
+                          :password => "william1",
+                         :password_confirmation => "william1")
+    bev = readers.users.create!(:name => "Bev Branton",
+                          :email => "bev.branton@utoronto.ca",
+                          :password => "william1",
+                         :password_confirmation => "william1")
+    halyna = readers.users.create!(:name => "Halyna Kozar",
+                          :email => "halyna.kozar@utoronto.ca",
+                          :password => "william1",
+                         :password_confirmation => "william1")
+
+    doug.toggle!(:supervisor)
+    halyna.toggle!(:supervisor)
+    bev.toggle!(:supervisor)
 
     10.times do |n|
       name = Faker::Name.name
@@ -17,7 +35,7 @@ namespace :db do
                    :email => email,
                    :password => password,
                    :password_confirmation => password)
-      user.jobs.create!(:name => "default")
+      user.jobs.create!(:name => "default", :department_id => rand(3) + 1)
     end
 
     10.times do

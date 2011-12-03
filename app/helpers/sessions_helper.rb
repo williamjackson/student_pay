@@ -50,10 +50,27 @@ module SessionsHelper
     deny_access unless signed_in?
   end
 
-
+  def supervisor_user
+    unless current_user.admin? || current_user.supervisor?
+      flash[:error] = "Only supervisors can access that page."
+      redirect_to(home_path)
+    end
+  end
 
   def admin_user
-    redirect_to(root_path) unless current_user.admin?
+    unless current_user.admin?
+      flash[:error] = "Only admins can access that page."
+      redirect_to(home_path)
+    end
+  end
+
+  def authorize_user(user)
+    unless (current_user?(user) || current_user.admin?||
+        current_user.supervisor?)
+      flash[:error] = "Only admins, supervisor, and the #{user.name} can access
+this page."
+      redirect_to(home_path)
+    end
   end
 
 end

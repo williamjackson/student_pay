@@ -1,5 +1,8 @@
 class AdminsController < ApplicationController
-  def view
+  before_filter :authenticate
+  before_filter :admin_user
+
+  def home
   end
 
   def data

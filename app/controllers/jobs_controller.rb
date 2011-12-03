@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_filter :authenticate
-  before_filter :correct_user, :only => [:edit, :update, :destroy]
+  before_filter :authorized_user, :only => [:edit, :update, :destroy]
 
   def new
     @job = current_user.jobs.new
@@ -37,7 +37,7 @@ class JobsController < ApplicationController
   def destroy
     job = Job.find(params[:id])
     user = job.user
-    if job.pay_sheets.nil?
+    if job.pay_sheets.blank?
       job.destroy
       flash[:success] = "Job destroyed."
     else
@@ -48,8 +48,8 @@ class JobsController < ApplicationController
 
   private
 
-  def correct_user
+  def authorized_user
     @user = User.find(Job.find(params[:id]).user_id)
-    redirect_to(root_path) unless (current_user?(@user) || current_user.admin?)
+    authorize_user(@user)       # find in sessions helper
   end
 end

@@ -1,9 +1,9 @@
 module JobsHelper
-  def current_supervisor(job)
-    if job.supervisor.nil?
-      "-Select supervisor"
+  def current_department(job)
+    if job.department.nil?
+      "-Select Supervising department"
     else
-      job.supervisor
+      job.department
     end
   end
 end

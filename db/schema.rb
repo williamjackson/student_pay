@@ -11,18 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111201183256) do
+ActiveRecord::Schema.define(:version => 20111203154124) do
+
+  create_table "departments", :force => true do |t|
+    t.string   "name"
+    t.string   "unique"
+    t.string   "index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "jobs", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "supervisor_id"
+    t.integer  "department_id"
     t.string   "name"
     t.decimal  "rate",          :precision => 8, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "jobs", ["supervisor_id"], :name => "index_jobs_on_supervisor_id"
+  add_index "jobs", ["department_id"], :name => "index_jobs_on_department_id"
   add_index "jobs", ["user_id", "name"], :name => "index_jobs_on_user_id_and_name", :unique => true
 
   create_table "pay_periods", :force => true do |t|
@@ -65,10 +73,13 @@ ActiveRecord::Schema.define(:version => 20111201183256) do
     t.string   "salt"
     t.boolean  "admin",              :default => false
     t.boolean  "supervisor",         :default => false
+    t.integer  "department_id"
     t.boolean  "part_time_employee", :default => true
     t.integer  "file"
   end
 
+  add_index "users", ["department_id"], :name => "index_users_on_department_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["supervisor"], :name => "index_users_on_supervisor"
 
 end

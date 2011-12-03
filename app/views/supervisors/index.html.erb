@@ -1,0 +1,5 @@
+<% @supervised_jobs.each do |job| %>
+    <ul class="supervised_jobs" >
+      <li><%= "#{job.user.name} (#{job.name})"%></li>
+    </ul>
+<% end %>

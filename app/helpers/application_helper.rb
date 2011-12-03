@@ -16,7 +16,8 @@ module ApplicationHelper
 
   def home_path
     if signed_in?
-      return view_admins_path if current_user.admin?
+      return home_admins_path if current_user.admin?
+      return @supervisors if current_user.supervisor?
       return root_path if current_user.part_time_employee
     end
   end

@@ -55,9 +55,9 @@ class UsersController < ApplicationController
 
   private
 
-  def authorized_user
+    def authorized_user
     @user = User.find(params[:id])
-    redirect_to(root_path) unless (current_user?(@user) || current_user.admin?)
+    authorize_user(@user)
   end
 
 

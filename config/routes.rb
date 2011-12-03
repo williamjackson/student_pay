@@ -1,9 +1,11 @@
 StudentPay::Application.routes.draw do
 
 
+  get "supervisors/index"
+
  resource :admins do
     collection do
-      get 'view'
+      get 'home'
       get 'data'
       get 'dbaction'
     end
