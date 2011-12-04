@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :user_name, :email, :password, :password_confirmation
+  attr_accessible :file, :name, :user_name, :email,
+                  :password, :password_confirmation
 
   has_many :jobs, :dependent => :destroy, :order => "name ASC"
   has_many :pay_sheets, :through => :jobs
@@ -10,6 +11,7 @@ class User < ActiveRecord::Base
 
   validates :name, :presence => true,
             :length => {:maximum => 50}
+
 
   validates :email, :presence => true,
             :format => {:with => email_regex},

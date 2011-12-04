@@ -21,7 +21,7 @@ class AdminsController < ApplicationController
       when "updated"
         job = Job.find(@id)
         job.rate = job_rate
-        job.user.file = user_file
+        job.user.update_attribute(:file, user_file)
         job.save!
         @tid = @id
     end
