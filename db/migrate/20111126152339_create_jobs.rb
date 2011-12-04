@@ -4,7 +4,7 @@ class CreateJobs < ActiveRecord::Migration
       t.integer :user_id
       t.integer :department_id
       t.string :name
-      t.decimal :rate, :precision => 8, :scale => 2
+      t.decimal :rate, :precision => 8, :scale => 2, :default => 0
 
 
       t.timestamps

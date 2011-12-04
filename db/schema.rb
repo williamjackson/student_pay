@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20111203154124) do
     t.integer  "user_id"
     t.integer  "department_id"
     t.string   "name"
-    t.decimal  "rate",          :precision => 8, :scale => 2
+    t.decimal  "rate",          :precision => 8, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

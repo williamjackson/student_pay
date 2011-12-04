@@ -16,9 +16,15 @@ xml.tag!("rows") do
         if pay_sheet
           xml.tag!("cell",  ("#{pay_sheet.total_hours}
           #{link_to "view",  edit_pay_sheet_path(pay_sheet)}"))
+          xml.tag!("cell", 0)
+          xml.tag!("cell", (job.rate * pay_sheet.total_hours))
         else
           xml.tag!("cell", (link_to "add pay sheet", new_pay_sheet_path(:job_id => job)))
+                      xml.tag("cell", 0)
+          xml.tag!("cell", 0)
         end
+
+
       end
     end
   end
