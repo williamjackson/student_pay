@@ -1,0 +1,27 @@
+<%= wicked_pdf_stylesheet_link_tag "pdf" %>
+<div id="pdf">
+  <h1><%= @title %></h1>
+
+  <h2>For the pay period ending <%= PayPeriod.current.end_date %> </h2>
+
+  <table class="table_pdf">
+    <tr>
+      <th>File</th>
+      <th>Name</th>
+      <th>Rate</th>
+      <th>Regular Hours</th>
+      <th>Holiday Hours</th>
+      <th>Total Pay</th>
+    </tr>
+    <% @pay_sheets.each do |pay_sheet| %>
+        <tr class="pay_sheet">
+            <td><%= pay_sheet.job.user.file %></td>
+            <td> <%= pay_sheet.job.user.name %></td>
+            <td> <%= pay_sheet.job.rate %></td>
+            <td> <%= pay_sheet.total_hours %></td>
+            <td></td>
+            <td> <%= pay_sheet.total_hours * pay_sheet.job.rate %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>

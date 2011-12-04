@@ -3,6 +3,15 @@ class AdminsController < ApplicationController
   before_filter :admin_user
 
   def home
+    respond_to do |format|
+      format.html
+      format.pdf do
+        @pay_sheets = PaySheet.find_all_by_pay_period_id(PayPeriod.current.id)
+        @pay_sheets.sort! {|a,b| a.job.user.name <=> b.job.user.name}
+        @title = "Victoria University Part-Time Pay"
+        render :pdf => "file_name"
+      end
+    end
   end
 
   def data

@@ -3,19 +3,20 @@
 <script src="/assets/dhtmlx/dhtmlxgrid.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/dhtmlx/dhtmlxgridcell.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/dhtmlx/ext/dhtmlxgrid_filter.js" type="text/javascript" charset="utf-8"></script>
-<div id="grid_here" style="width:100%; height:400px;">
+<div id="grid_here" style="width:100%; height:800px;">
 </div>
 <script type="text/javascript" charset="utf-8">
-
+    <% end_date = PayPeriod.current.end_date %>
     var grid = new dhtmlXGridObject("grid_here");
     grid.setImagePath("/assets/dhtmlx/imgs/");
+    grid.attachHeader("<strong><%= "For pay period ending #{end_date}" %></strong>,#cspan,<strong>Totals:</strong>,{#stat_total},{#stat_total},{#stat_total}");
+
     grid.setHeader("File, Name, Rate, Regular Hours, Holiday Hours, Pay");
     grid.setInitWidths("50,*,100, 100, 100, 100");
     grid.setColTypes("ed,ro,price,ro,ro,price");
     grid.setSkin("light");
     grid.init();
     grid.load("data.xml"); //added !
-    grid.attachHeader("<strong>Totals:</strong>,#cspan,#cspan,{#stat_total},{#stat_total},{#stat_total}")
     dp = new dataProcessor("dbaction.xml");
     dp.attachEvent("onAfterUpdate", function() {
       grid.updateFromXML("data.xml");

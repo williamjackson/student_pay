@@ -4,6 +4,8 @@ gem 'rails', '3.1.1'
 gem 'will_paginate'
 gem 'jquery-rails', ">= 1.0.19"
 gem 'sqlite3'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
