@@ -47,5 +47,6 @@ group :development do
 end
 
 group :production do
+  gem 'faker', '0.3.1'
 
 end
