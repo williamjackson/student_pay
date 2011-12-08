@@ -58,5 +58,5 @@ StudentPay::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.assets.debug = true
+  config.assets.debug = false
 end
