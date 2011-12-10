@@ -1,14 +1,21 @@
 <div class="approved">
   <% if !@approved_pay_sheets.blank? %>
       <h3>Approved pay sheets</h3>
-      <% @approved_pay_sheets.each do |pay_sheet| %>
-          <% job = pay_sheet.job %>
-          <ul>
-            <li><%= link_to job.user.name, job.user %>
-              <%= "(#{job.name})" %>
-              <%= link_to "view/update", edit_pay_sheet_path(pay_sheet) %>
-            </li>
-          </ul>
+      <% @approved_pay_sheets.in_groups_of(@approved_pay_sheets.size / 2) do |group| %>
+          <div class='narrow-col'>
+            <ul>
+              <% group.each do |pay_sheet| %>
+                  <% if pay_sheet %>
+                      <% job = pay_sheet.job %>
+                      <li>
+                        <%= link_to job.user.name, job.user %>
+                        <%= "(#{job.name})" %>
+                        <%= link_to "view/update", edit_pay_sheet_path(pay_sheet) %>
+                      </li>
+                  <% end %>
+              <% end %>
+            </ul>
+          </div>
       <% end %>
   <% end %>
 
@@ -17,19 +24,25 @@
 <div class="missing">
   <% if !@jobs_missing_pay_sheets.blank? %>
       <h3>Missing pay sheets</h3>
-      <% @jobs_missing_pay_sheets.each do |job| %>
-          <ul>
-            <li><%= link_to job.user.name, job.user %>
-              <%= "(#{job.name})" %>
-              <%= link_to "add pay sheet", new_pay_sheet_path(:job_id => job) %>
-            </li>
-          </ul>
+      <% @jobs_missing_pay_sheets.in_groups_of(@jobs_missing_pay_sheets.size / 2) do |group| %>
+          <div class='narrow-col'>
+            <ul>
+              <% group.each do |job| %>
+                  <% if job %>
+                      <li><%= link_to job.user.name, job.user %>
+                        <%= "(#{job.name})" %>
+                        <%= link_to "add pay sheet", new_pay_sheet_path(:job_id => job) %>
+                      </li>
+                  <% end %>
+              <% end %>
+            </ul>
+          </div>
+
       <% end %>
   <% end %>
 </div>
 
 <div class="unapproved">
-  <br />
   <% if !@unapproved_pay_sheets.blank? %>
       <h3>Pay sheets requiring approval</h3>
       <% @unapproved_pay_sheets.each do |pay_sheet| %>

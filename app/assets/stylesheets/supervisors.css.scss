@@ -1,13 +1,11 @@
 // Place all the styles related to the supervisors controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-.missing {
-    float: right;
-    width: 50%;
+div.narrow-col {
+ width: 50%;
+ float: left;
 }
 
-.approved {
-    float: left;
-    width: 50%;
+div.unapproved {
+    clear:left;
 }

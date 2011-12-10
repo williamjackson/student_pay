@@ -49,8 +49,8 @@ namespace :db do
                           :email => email,
                           :password => password,
                           :password_confirmation => password)
-      i = rand(4)
-      k = rand(3)
+      i = Random.rand(4)
+      k = Random.rand(3)
       job = user.jobs.create!(:name => jobs[i][0], :department_id => jobs[i][1])
       if k == 0
         job.pay_sheets.create!(:pay_period_id => current_pay_period)
