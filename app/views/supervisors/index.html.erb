@@ -1,7 +1,9 @@
 <div class="approved">
   <% if !@approved_pay_sheets.blank? %>
       <h3>Approved pay sheets</h3>
-      <% @approved_pay_sheets.in_groups_of(@approved_pay_sheets.size / 2) do |group| %>
+      <% size = @approved_pay_sheets.size
+      size = size + 1 if size % 2 == 1%>
+      <% @approved_pay_sheets.in_groups_of(size / 2) do |group| %>
           <div class='narrow-col'>
             <ul>
               <% group.each do |pay_sheet| %>
@@ -24,7 +26,9 @@
 <div class="missing">
   <% if !@jobs_missing_pay_sheets.blank? %>
       <h3>Missing pay sheets</h3>
-      <% @jobs_missing_pay_sheets.in_groups_of(@jobs_missing_pay_sheets.size / 2) do |group| %>
+      <% size = @jobs_missing_pay_sheets.size
+      size = size + 1 if size % 2 == 1%>
+      <% @jobs_missing_pay_sheets.in_groups_of(size / 2) do |group| %>
           <div class='narrow-col'>
             <ul>
               <% group.each do |job| %>
